@@ -1,0 +1,50 @@
+[
+  
+  {
+    "COUNTRY": "Burkina Faso",
+    "ADMIN1": "Cascades",
+    "rowcacode1": "BFA047",
+    "country_code": "BFA",
+    "projet": 4
+    },
+    {
+    "COUNTRY": "Chad",
+    "ADMIN1": "Barh el Ghazel",
+    "rowcacode1": "TCD019",
+    "country_code": "TCD",
+    "projet": 3
+  },
+  
+  {
+    "COUNTRY": "Mali",
+    "ADMIN1": "Bamako",
+    "rowcacode1": "MLI009",
+    "country_code": "MLI",
+    "projet": 5
+  },
+  
+  {
+    "COUNTRY": "Mauritania",
+    "ADMIN1": "Adrar",
+    "rowcacode1": "MRT001",
+    "country_code": "MRT",
+    "projet": 4
+  },
+  
+  {
+    "COUNTRY": "Niger",
+    "ADMIN1": "Agadez",
+    "rowcacode1": "NER001",
+    "country_code": "NER",
+    "projet": 6
+  },
+ 
+  {
+    "COUNTRY": "Senegal",
+    "ADMIN1": "Dakar",
+    "rowcacode1": "SEN001",
+    "country_code": "SEN",
+    "projet": 2
+  }
+  
+]

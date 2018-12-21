@@ -1,0 +1,110 @@
+.dc-chart g.row text {
+    fill: black;
+    font-size:0.8em;
+}
+
+.dc-chart .pie-slice {
+    fill:black;
+}
+
+.x-axis-label{
+    font-size:0.8em;
+}
+
+#MapInform{
+    height:260px;
+    width:390px;
+   /* margin-left: 34px;*/
+    
+}
+
+#header{
+    /*padding-bottom:20px;*/
+    border-bottom-color: #dddddd;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+    margin-bottom:5px;
+}
+#footer{
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top-color: #dddddd;
+  border-top-style: solid;
+  border-top-width: 1px;
+}
+.removepadding {
+    padding-right:0px;
+    padding-left:0px;
+}
+ 
+ #dataTable1 {
+    margin-left: 2px;
+    padding-left: 0px;
+    border: 1px;
+    overflow: auto;
+    /*height: 100px;
+    width: 100px;*/
+}
+
+#dataTable2 {
+    margin-left: 2px;
+   /* padding-right: 10px;*/
+    border: 1px;
+    padding-left: 0px;
+    overflow: auto;
+    /*height: 100px;
+    width: 100px;*/*/
+
+}
+.dc-table-column {
+    font-size:0.80em;
+    color: #000000;
+    padding:5;
+ }
+
+ /*.dc-table-label {
+    background-color:#cccccc;
+    height: 1px;
+ }*/
+  .dc-chart tbody td.dc-table-label {
+    color: transparent;
+    padding: 0px;
+    line-height: 0px;
+    /*margin: */
+
+  }
+/* .dc-chart tbody tr.dc-table-group td {
+    color: transparent;
+    color: #999999;
+    height: 1px;
+ }*/
+ #dataTable1 th{
+  font-size:0.2em;
+  color:  #FEFEFE;
+  overflow: auto;
+}
+
+.table.table-condensed thead tr th {
+    font-size: 14px;
+    color: #7F7F7;
+}
+
+.table.table-condensed tr td {
+    font-size: 16px;
+    color: #999999;
+}
+
+#reset {
+  float:right;
+  margin-bottom: 10px;
+}
+/* basic positioning */
+.legend { list-style: none; }
+.legend li { float: left; margin-right: 10px; }
+.legend span { border: 1px solid #ccc; float: left; width: 12px; height: 12px; margin: 5px;  }
+/* your colors */
+.legend .verylow { background-color: #FFC8BF; }
+.legend .low { background-color: #F59181; }
+.legend .Medium { background-color: #FE5A43; }
+.legend .High { background-color: #921301; }
+.legend .VeryHigh { background-color: #620D00; }
