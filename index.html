@@ -5,16 +5,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" ype="text/css" href="css/bootstrap.min.css"/>
         <link rel="stylesheet" type="text/css" href="css/dc.css"/>
+        <link rel="stylesheet" type="text/css" href="css/loader.css"/>
         <link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
         <link rel="stylesheet" type="text/css" href="css/site.css"/>
-        <script src="js/jquery-2.1.4.min.js"></script>
+        <script src="libs/jquery.js"></script>
+        <script src="libs/d3.min.js"></script>
+        <script src="libs/crossfilter.v1.min.js"></script>
+        <script src="libs/dc.js"></script>
+        <script src="libs/leaflet.js"></script>
+        <script src="libs/dc.leaflet.js"></script>
+        <script src="libs/d3.tip.min.js"></script>
+        <script src="libs/topojson.v1.min.js"></script>
+        <script src="libs/dc.axis.js"></script>  
+        <!-- <script src="js/jquery-2.1.4.min.js"></script>
         <script src="js/d3.min.js"></script>
         <script src="js/crossfilter.v1.min.js"></script>
         <script src="js/dc.min.js"></script>
         <script src="js/leaflet.js"></script>
         <script src="js/bootstrap.js"></script>
         <script src="js/dc.leaflet.js"></script>
-        <script src="data/faoCountry.js"></script>     
+         <script src="js/d3.tip.min.js"></script>
+        <script src="js/dc.axis.js"></script>  -->
+
     </head>
     <body>
       <div class="container-fluid" id='main-container'>
@@ -24,15 +36,15 @@
 
         <div class="row"> <!-- 3W -->
           <div class="col-md-4">
-            <h3>Montant du financement</h3>
+            <h4>Montant du financement</h4>
             <div id="financement"></div>
           </div>
           <div class="col-md-4">
-            <h3>Personnes beneficiaires par activite</h3>
-            <div id="beneficiaires"></div>
+            <h4>Personnes bénéficiaires par activité</h4>
+            <div id="activite"></div>
           </div>
           <div class="col-md-4">
-            <h3>Personnes beneficiaires par pays</h3>
+            <h4>Personnes bénéficiaires par pays</h4>
             <div id="map"></div>
           </div>
           
@@ -47,6 +59,6 @@
         
           
       <script src="js/bootstrap.min.js"></script>
-      <script src="js/site1.js"></script>
+      <script src="js/site.js"></script>
     </body>
 </html>

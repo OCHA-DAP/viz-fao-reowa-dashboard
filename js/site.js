@@ -1,98 +1,138 @@
+function hxlProxyToJSON(input){
+    var output = [];
+    var keys = [];
+    input.forEach(function(e,i){
+        if(i==0){
+            e.forEach(function(e2,i2){
+                var parts = e2.split('+');
+                var key = parts[0]
+                if(parts.length>1){
+                    var atts = parts.splice(1,parts.length);
+                    atts.sort();                    
+                    atts.forEach(function(att){
+                        key +='+'+att
+                    });
+                }
+                keys.push(key);
+            });
+        } else {
+            var row = {};
+            e.forEach(function(e2,i2){
+                row[keys[i2]] = e2;
+            });
+            output.push(row);
+        }
+    });
+    return output;
+}
 function generateringComponent(vardata, vargeodata){
 var lookup = genLookup(vargeodata) ;
-var Imap = dc.leafletChoroplethChart('#MapInform');
-//var dataTab1 = dc.dataTable('#dataTable2');
-//var dataTab2 = dc.dataTable('#dataTable1');
+var map = dc.leafletChoroplethChart('#map');
+var activityChart = dc.rowChart('#activite');
+var fundChart = dc.rowChart('#financement');
 var cf = crossfilter(vardata) ;
 var all = cf.groupAll();
-var mapDimension = cf.dimension(function(d) { return d.country_code});
-var mapGroup = mapDimension.group().reduceSum(function(d){ return d.projet});
-
+var mapDimension = cf.dimension(function(d) { return d['#country+code']});
+var mapGroup = mapDimension.group().reduceSum(function(d){ return d['#reached+households']});
+var activityDimension = cf.dimension(function(d) {return d['#activity+name']});
+var activityGroup = activityDimension.group().reduceSum(function(d){return d['#reached+people']});
+var fundDimension = cf.dimension(function(d){return d['#country+name']});
+var fundGroup = fundDimension.group().reduceSum(function(d){return d['#value+funding+total+usd']});
 dc.dataCount('#count-info')
   .dimension(cf)
   .group(all);
-  
-   Imap.width(100)
-       .height(100)
+
+//Row chart bénéficiaires par activité
+activityChart
+            .width(400)
+            .height(310) 
+    .margins({
+            top: 10,
+            right: 30,
+            bottom: 30,
+            left: 50
+          })
+            .dimension(activityDimension)
+            .group(activityGroup)
+            .elasticX(true)
+            .data(function(group) {
+                return group.top(Infinity);
+            })
+            //.filter(function(d) { return d.key !== ""; })
+            .colors('#4169E1')
+            .colorAccessor(function(d, i){return 0;})
+            .xAxis().ticks(5);
+  //rowChart financement par pays
+  fundChart
+            .width(400)
+            .height(310) 
+    .margins({
+            top: 10,
+            right: 30,
+            bottom: 30,
+            left: 50
+          })
+            .dimension(fundDimension)
+            .group(fundGroup)
+            .elasticX(true)
+            .data(function(group) {
+                return group.top(Infinity);
+            })
+            //.filter(function(d) { return d.key !== ""; })
+            .colors('#4169E1')
+            .colorAccessor(function(d, i){return 0;})
+            .xAxis().ticks(4);
+  //Map          
+   map.width($('#mapChart').width())
+       .height(300)
        .dimension(mapDimension)
        .group(mapGroup)
-       .label(function (p) { return p.key; })
-       .renderTitle(true)
-       .center([0,0])
-       .zoom(0)
+       .center([27.85,85.1])
+       .zoom(8) 
        .geojson(vargeodata)
        .colors(['#DDDDDD', '#fff7bc', '#ffeda0', '#fec44f', '#d95f0e'])
-       .colorDomain([0,4])
+       .colorDomain([0,5])
        .colorAccessor(function (d){
         var c = 0
-           if (d>5) {
-                 c = 5;
-               } else if (d>4) {
-                    c = 4;
-               } else if (d>3){
-                  c = 3;
-             
-              } else if (d>0) {
+           if (d>55000) {
+                 c = 4;
+               } else if (d>50000) {
+                    c = 3;
+               } else if (d>10000){
+                  c = 2;
+               } else if (d>0) {
                 c = 1;
-              }
+               }
                return c
         })
        .featureKeyAccessor(function (feature){
           return feature.properties['country_code'];
           }).popup(function (d){
-          return '<h5>'+ d.properties['country_name'] +'</h5> '+'<b>'+'Nombre de projets'+'</b>';
+          return '<h6>'+ 'Pays: '+d.properties['country_name']+'</h6>'
+           +'<h6>'+'Nombre de projets: '+d.properties['projet']+ '</h6>'+'<h6>'
+            +'Ménages bénéficiaires'+'</h6>';
        })
           
         .renderPopup(true);
-//begin test
-function style(feature) {
-    if (feature.properties['country_code']) 
-        return {
-
-            fillColor:'#f03b20',
-            weight: 4,
-            opacity: 0.9,
-            color: '#f03b20',
-            fillOpacity: 0.9
-        };
- }      
- 
-  
-     Winheight = $(window).height();
-     //$("#MapInform").css("background-color","#FFFFFF");
-      
+       
+       
       dc.renderAll();
 
-      var map = Imap.map({ 
-        /*maxZoom: 5,
-        minZoom: 3*/
+      var map = map.map({ 
+        maxZoom: 3,
+        minZoom: 3
       });
 
       zoomToGeom(vargeodata);
       function zoomToGeom(geodata){
         var bounds = d3.geo.bounds(geodata) ;
         map.fitBounds([[bounds[0][1],bounds[0][0]],[bounds[1][1],bounds[1][0]]])
-            .setZoom(4)
-            .setView([9.80, 10.37], 4)
+            .setZoom(3)
+            .setView([20, 0],3)
             .dragging.disable();
       }
-    map.keyboard.disable();
+        map.keyboard.disable();
     
- var legend = L.control({position: 'topright'});
-
-    legend.onAdd = function (map) {
-
-        var div = L.DomUtil.create('div', 'info legend'),
-            labels = ['75 - 90','90 - 110','110 - 150 ','150+'];
-            colors =['#31a354','#addd8e','#f7fcb9','#ffeda0'];
-
-        div.innerHTML = '<br />Légende<br />';
-        for (var i = 0; i < labels.length; i++) {
-            div.innerHTML +=
-                '<i style="background:' + colors[i] + '"></i> ' + labels[3-i] +'<br />';
-        }
-        return div;
-    };
      
       function genLookup(geojson) {
         var lookup = {} ;
@@ -103,10 +143,15 @@ function style(feature) {
       }
 }
 
-var dataCall = $.ajax({
+/*var dataCall = $.ajax({
     type: 'GET',
-    url: 'data/InformData2.json',
+    url: 'data/data.json',
     dataType: 'json',
+});*/
+var dataCall = $.ajax({
+  type: 'GET',
+  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1_csDhgYdfvgaumE8uqKBRmh_JEpyem3XFuXuJ9WvbNw%2Fedit%23gid%3D785867042',
+  dataType: 'json',
 });
 
 var geomCall = $.ajax({
@@ -120,6 +165,9 @@ $.when(dataCall, geomCall).then(function(dataArgs, geomArgs){
     geom.features.forEach(function(e){
         e.properties['country_code'] = String(e.properties['country_code']);
     });
-    generateringComponent(dataArgs[0],geom);
+    var dat = hxlProxyToJSON(dataArgs[0]);
+    generateringComponent(dat,geom);
+
 });
+
 // testing
