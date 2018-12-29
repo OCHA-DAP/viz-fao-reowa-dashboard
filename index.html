@@ -8,6 +8,7 @@
         <link rel="stylesheet" type="text/css" href="css/loader.css"/>
         <link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
         <link rel="stylesheet" type="text/css" href="css/site.css"/>
+        <link rel="stylesheet" type="text/css" href="css/c3.css"/>
         <script src="libs/jquery.js"></script>
         <script src="libs/d3.min.js"></script>
         <script src="libs/crossfilter.v1.min.js"></script>
@@ -16,45 +17,65 @@
         <script src="libs/dc.leaflet.js"></script>
         <script src="libs/d3.tip.min.js"></script>
         <script src="libs/topojson.v1.min.js"></script>
-        <script src="libs/dc.axis.js"></script>  
-        <!-- <script src="js/jquery-2.1.4.min.js"></script>
-        <script src="js/d3.min.js"></script>
-        <script src="js/crossfilter.v1.min.js"></script>
-        <script src="js/dc.min.js"></script>
-        <script src="js/leaflet.js"></script>
-        <script src="js/bootstrap.js"></script>
-        <script src="js/dc.leaflet.js"></script>
-         <script src="js/d3.tip.min.js"></script>
-        <script src="js/dc.axis.js"></script>  -->
-
+        <script src="libs/dc.axis.js"></script>
+        <script src="libs/c3.min.js"></script>
+        <script src="js/dc.axis.js"></script>
     </head>
     <body>
-      <div class="container-fluid" id='main-container'>
+      <div class="container" id='main-container'>
+        <div class="row">
+          <h3>Réponse de la FAO REOWA à la crise pastorale dans le Sahel (à la date du 25 Novembre 2018)</h3>
+        </div>
         <div class="row"> <!-- chiffres cles -->
-          
+          <div class="row">
+            <div class="col-md-4">
+              <h6><span class="chiffre">8.2 millions</span> de personnes à assister pour (2018-2021)</h6>
+            </div>
+            <div class="col-md-4">
+              <h6 class="kf"><span class="chiffre">44.2 millions</span> ont été mobilisés jusqu'à présent</h6>
+            </div>
+            <div class="col-md-4">
+              <h6 class="kf"><span class="chiffre">625 560 personnes</span> assistées au 25 novembre 2018</h6>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <h6 class="kf"><span class="chiffre">166,8 millions</span> de dollars requis par la FAO</h6>
+            </div>
+            <div class="col-md-4">
+              <h6 class="kf">Gap de  <span class="chiffre">122.6  millions</span> (soit 73.5%) </h6>
+            </div>
+          </div>
         </div> <!-- row -->
-
+        <hr>
         <div class="row"> <!-- 3W -->
           <div class="col-md-4">
-            <h4>Montant du financement</h4>
+            <h5>Montant du financement</h5>
             <div id="financement"></div>
           </div>
           <div class="col-md-4">
-            <h4>Personnes bénéficiaires par activité</h4>
+            <h5>Personnes bénéficiaires</h5>
             <div id="activite"></div>
           </div>
           <div class="col-md-4">
-            <h4>Personnes bénéficiaires par pays</h4>
+            <h5>Personnes bénéficiaires par pays</h5>
             <div id="map"></div>
           </div>
           
         </div> <!-- row -->
-
+        <br>
         <div class="row"> <!-- stack bar charts -->
-          
+          <div class="row">
+            <div id="c3chart"></div>
+          </div>
         </div> <!-- row -->
-
-        
+        <footer>
+            <div class="container">
+                <div class="row footer">
+                    <span class="pull-right">Powered by &nbsp;<a target="_blank" href="https://data.humdata.org"><img class="img-responsive hdx" src='img/HDX-logo-home.svg'></span>
+                </div>
+            </div>
+        </footer>
       </div> <!-- container -->
         
           

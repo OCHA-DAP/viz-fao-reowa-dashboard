@@ -21,7 +21,15 @@
  }
 #map{
     height:300px;
-    width:350px;
+    width:100%;
+}
+.chiffre{
+  font-size: 20px;
+  color: #6787E7;
+}
+h6{
+font-size: 13px;
+/*color: #6AA84F;*/
 }
 #activite{
   height:300px;
@@ -39,8 +47,9 @@
     margin-bottom:5px;
 }
 #footer{
-  margin-top: 20px;
+  margin-top: 10px;
   padding-top: 10px;
+  padding-bottom: 10px;
   border-top-color: #dddddd;
   border-top-style: solid;
   border-top-width: 1px;
@@ -49,7 +58,10 @@
     padding-right:0px;
     padding-left:0px;
 }
-  
+.hdx{
+    width: 80px;
+    display: inline;
+   }
 #reset {
   float:right;
   margin-bottom: 10px;
