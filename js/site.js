@@ -25,6 +25,13 @@ function hxlProxyToJSON(input){
     });
     return output;
 }
+
+//tooltip
+var rowtip = d3.tip().attr('class', 'd3-tip').html(function (d) {
+    return d.key + ': ' + d3.format('0,000')(d.value);
+
+});
+
 function generateringComponent(vardata, vargeodata){
 var lookup = genLookup(vargeodata) ;
 var map = dc.leafletChoroplethChart('#map');
@@ -83,14 +90,15 @@ activityChart
             .colorAccessor(function(d, i){return 0;})
             .xAxis().ticks(4);
   //Map
-  var mapColors = ['#DDDDDD','#4CCDFF', '#9AC7F3','#6787E7', '#033E8C'];//['#DDDDDD', '#fff7bc', '#ffeda0', '#fec44f', '#d95f0e'];
+  var mapColors = ['#DDDDDD','#A7C1D3','#71A5CA','#3B88C0', '#056CB6'];
    map
-      // .width($('#map').width())
-      .width(400)
-       .height(300)
+      .width($('#map').width())
+      // .width(400)
+       // .height(300)
        .dimension(mapDimension)
        .group(mapGroup)
-       .center([27.85,85.1])
+       // .center([27.85,85.1])
+       .center([0,0])
        .zoom(8)
        .geojson(vargeodata)
        .colors(mapColors)
@@ -118,13 +126,21 @@ activityChart
         .renderPopup(true);
 
       dc.renderAll();
+      d3.selectAll('g.row').call(rowtip);
+      d3.selectAll('g.row').on('mouseover', rowtip.show).on('mouseout', rowtip.hide);
 
       var map = map.map({ 
         maxZoom: 3,
         minZoom: 3
       });
 
+      // var map = map.map();
+      // map.options.maxZoom = 3;
+      // map.options.minZoom = 3;
+
       zoomToGeom(vargeodata);
+
+
       function zoomToGeom(geodata){
         var bounds = d3.geo.bounds(geodata) ;
         map.fitBounds([[bounds[0][1],bounds[0][0]],[bounds[1][1],bounds[1][0]]])
@@ -141,6 +157,8 @@ activityChart
         });
         return lookup ;
       }
+      $('.viz-container').show();
+      $('.loader').hide();
 }
 var sortData = function(d1, d2) {
     if (d1.key > d2.key) return 1;

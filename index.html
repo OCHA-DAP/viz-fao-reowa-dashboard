@@ -7,7 +7,6 @@
         <link rel="stylesheet" type="text/css" href="css/dc.css"/>
         <link rel="stylesheet" type="text/css" href="css/loader.css"/>
         <link rel="stylesheet" type="text/css" href="css/leaflet.css"/>
-        <link rel="stylesheet" type="text/css" href="css/site.css"/>
         <link rel="stylesheet" type="text/css" href="css/c3.css"/>
         <script src="libs/jquery.js"></script>
         <script src="libs/d3.min.js"></script>
@@ -20,12 +19,15 @@
         <script src="libs/dc.axis.js"></script>
         <script src="libs/c3.min.js"></script>
         <script src="js/dc.axis.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/site.css"/>
     </head>
     <body>
-      <div class="container" id='main-container'>
+      <div class="loader" id="loader"></div>
+      <div class="container">
         <div class="row">
           <h3>Réponse de la FAO REOWA à la crise pastorale dans le Sahel (à la date du 25 Novembre 2018)</h3>
         </div>
+        <div class="viz-container">
         <div class="row"> <!-- chiffres cles -->
           <div class="row">
             <div class="col-md-4">
@@ -61,7 +63,6 @@
             <h5>Personnes bénéficiaires par pays</h5>
             <div id="map"></div>
           </div>
-          
         </div> <!-- row -->
         <br>
         <div class="row"> <!-- stack bar charts -->
@@ -76,9 +77,8 @@
                 </div>
             </div>
         </footer>
+      </div>
       </div> <!-- container -->
-        
-          
       <script src="js/bootstrap.min.js"></script>
       <script src="js/site.js"></script>
     </body>

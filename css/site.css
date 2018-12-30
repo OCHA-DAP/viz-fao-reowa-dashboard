@@ -1,10 +1,28 @@
+.d3-tip {
+    padding:5px;
+    background-color:white;
+    background: rgba(255,255,255,0.8);
+    box-shadow: 0 0 15px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    font-size:1em;
+}
+
+/*.viz-container {
+    display: none;
+}*/
+
+.chiffre {
+  font-size: 20px;
+  color: #6787E7;
+}
+
+h6 {
+  font-size: 13px;
+}
+
 .dc-chart g.row text {
     fill: black;
     font-size:0.8em;
-}
-
-.dc-chart .pie-slice {
-    fill:black;
 }
 
 .x-axis-label{
@@ -19,34 +37,13 @@
     font-size:1em;
     color:#000000;
  }
-#map{
+
+#map {
     height:300px;
-    width:100%;
+    width:400px;
 }
-.chiffre{
-  font-size: 20px;
-  color: #6787E7;
-}
-h6{
-font-size: 13px;
-/*color: #6AA84F;*/
-}
-#activite{
-  height:300px;
-  width:100%;
-}
-#financement{
-  height:300px;
-  width:100%;
-}
-#header{
-    /*padding-bottom:20px;*/
-    border-bottom-color: #dddddd;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
-    margin-bottom:5px;
-}
-#footer{
+
+#footer {
   margin-top: 10px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -54,15 +51,26 @@ font-size: 13px;
   border-top-style: solid;
   border-top-width: 1px;
 }
-.removepadding {
-    padding-right:0px;
-    padding-left:0px;
-}
-.hdx{
+
+.hdx {
     width: 80px;
     display: inline;
-   }
-#reset {
-  float:right;
-  margin-bottom: 10px;
+}
+
+.loader {
+    animation: spin 2s linear infinite;
+    border: 8px solid #f3f3f3; /* Light grey */
+    border-top: 8px solid #3498db; /* Blue */
+    border-radius: 50%;
+    height: 70px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 70px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
