@@ -1,19 +1,27 @@
 /* global dc, L */
+var _map;
+
 dc.leafletChart = function (_chart) {
     "use strict";
     _chart = dc.baseChart(_chart);
 
-    var _map;
+    // var _map;
 
     var _mapOptions = false;
     var _defaultCenter = false;
     var _defaultZoom = false;
 
     var _tiles = function (map) {
-        L.tileLayer('https://data.humdata.org/mapbox-base-tiles/{z}/{x}/{y}.png', {}).addTo(map);
+        L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
     };
 
     _chart._doRender = function () {
+        if (_map != undefined) {
+            _map.remove();
+        }
+        
         _map = L.map(_chart.root().node(), _mapOptions);
         if (_defaultCenter && _defaultZoom) {
             _map.setView(_chart.toLocArray(_defaultCenter), _defaultZoom);
@@ -596,14 +604,14 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
     var _info = false;
 
     var _geojson = false;
-    var _renderPopup = true;
+    var _renderPopup = true; 
     var _brushOn = true;
     var _featureOptions = {
         'fillColor': 'white',
         'color': 'black',
         'opacity':1,
         'fillOpacity': 0,
-        'weight': 0.5
+        'weight': 2
     };
 
     var _featureKey = function (feature) {
@@ -628,20 +636,20 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
                     options.opacity = 1;
                     options.fillOpacity = 0.8;
                     options.color = 'white';
-                    options.weight = 0.5;                                                 
+                    options.weight = 2;                                                 
                 } else {
                     options.fillColor = _chart.getColor(0, v.i);
                     options.opacity = 1;
                     options.fillOpacity = 0.8;
                     options.color = 'white';
-                    options.weight = 0.5;                                                      
+                    options.weight = 2;                                                      
                 }
             } else {
                 options.fillColor = _chart.getColor(v.d.value, v.i);
                 options.opacity = 1;
                 options.fillOpacity = 0.8;
                 options.color = 'white';
-                options.weight = 0.5;                                   
+                options.weight = 2;                                   
             }           
         }
         return options;
@@ -649,6 +657,7 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
 
     var _popup = function (d, feature) {
         return _chart.title()(d);
+
     };
 
     _chart._postRender = function () {
@@ -743,7 +752,9 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
         var v = _dataMap[_chart.featureKeyAccessor()(feature)];
                 layer.on("mouseover",function(){
                     if(v!==undefined){
-                        var info = _chart.popup()(feature) +": " +v.d.value;
+                        // var info = _chart.popup()(feature) +": " +v.d.value; -- original
+                        var info = _chart.popup()(feature);
+
                     } else {
                         var info = _chart.popup()(feature);
                     }
@@ -754,7 +765,8 @@ dc.leafletChoroplethChart = function (parent, chartGroup) {
                 });   
         if (v && v.d) {
             layer.key = v.d.key;
-            if (_chart.renderPopup()) {             
+            if (_chart.renderPopup()) { 
+                //tes changements            
                 //layer.bindPopup(_chart.popup()(v.d, feature));
              
             }

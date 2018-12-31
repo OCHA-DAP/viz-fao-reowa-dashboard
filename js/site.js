@@ -28,7 +28,7 @@ function hxlProxyToJSON(input){
 
 //tooltip
 var rowtip = d3.tip().attr('class', 'd3-tip').html(function (d) {
-    return d.key + ': ' + d3.format('0,000')(d.value);
+    return d.key + ': ' + d3.format('0.000')(d.value);
 
 });
 
@@ -118,12 +118,9 @@ activityChart
         })
        .featureKeyAccessor(function (feature){
           return feature.properties['country_code'];
-          }).popup(function (d){
-          return '<h6>'+ 'Pays: '+d.properties['country_name']+'</h6>'
-           +'<h6>'+'Nombre de projets: '+d.properties['projet']+ '</h6>'+'<h6>'
-            +'Ménages bénéficiaires'+'</h6>';
-       })
-        .renderPopup(true);
+          }).popup(function (feature){
+          return '<h6> Pays: '+feature.properties['country_name']+'<br>Nombre de projets: '+feature.properties['projet']+'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']+'</h6>';
+       });
 
       dc.renderAll();
       d3.selectAll('g.row').call(rowtip);
