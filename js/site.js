@@ -32,6 +32,10 @@ var rowtip = d3.tip().attr('class', 'd3-tip').html(function (d) {
 
 });
 
+var formatNumber = function(d){
+    return d3.format(',')(d);
+}
+
 function generateringComponent(vardata, vargeodata){
 var lookup = genLookup(vargeodata) ;
 var map = dc.leafletChoroplethChart('#map');
@@ -119,7 +123,7 @@ activityChart
        .featureKeyAccessor(function (feature){
           return feature.properties['country_code'];
           }).popup(function (feature){
-          return '<h6> Pays: '+feature.properties['country_name']+'<br>Nombre de projets: '+feature.properties['projet']+'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']+'</h6>';
+          return '<h5>'+(feature.properties['country_name']).toUpperCase()+'</h5><h6>Nombre de projets: '+feature.properties['projet']+'<br>Ménages bénéficiaires: '+formatNumber(feature.properties['menage_beneficiaire'])+'</h6>';
        });
 
       dc.renderAll();

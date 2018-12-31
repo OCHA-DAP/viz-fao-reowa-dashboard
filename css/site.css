@@ -16,6 +16,7 @@
   color: #6787E7;
 }
 
+
 h6 {
   font-size: 13px;
 }
@@ -40,7 +41,7 @@ h6 {
 
 #map {
     height:300px;
-    width:400px;
+    width:100%;
 }
 
 #footer {
