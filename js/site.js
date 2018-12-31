@@ -123,7 +123,7 @@ activityChart
        .featureKeyAccessor(function (feature){
           return feature.properties['country_code'];
           }).popup(function (feature){
-          return '<h5>'+(feature.properties['country_name']).toUpperCase()+'</h5><h6>Nombre de projets: '+feature.properties['projet']+'<br>Ménages bénéficiaires: '+formatNumber(feature.properties['menage_beneficiaire'])+'</h6>';
+          return '<strong>'+(feature.properties['country_name']).toUpperCase()+'</strong><h6>Nombre de projets: '+feature.properties['projet']+'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']+'</h6>';
        });
 
       dc.renderAll();
