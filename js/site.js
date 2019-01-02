@@ -108,21 +108,24 @@ activityChart
        .colors(mapColors)
        .colorDomain([0,5])
        .colorAccessor(function (d){
-        var trueValue;
-        d==59625 ? trueValue= 38317:
-        d==18567 ? trueValue= 20550:
-        d==25756 ? trueValue= 29000:
-        d==52908 ? trueValue= 15600:
-        d==2300 ? trueValue = 14398: trueValue=34500;
-        var c = 0
+        var trueValue=0;
+        d==59625 ? trueValue= 38317:trueValue=d;
+        d==18567 ? trueValue= 20550:trueValue=d;
+        d==25756 ? trueValue= 29000:trueValue=d;
+        d==52908 ? trueValue= 15600:trueValue=d;
+        d==2300 ? trueValue = 14398:trueValue=d;
+        d== 51072 ?  trueValue=34500: trueValue=d;
+        var c=0;
            if (trueValue>37000) {
                  c = 4;
                } else if (trueValue>28000) {
                     c = 3;
                } else if (trueValue>14000){
                   c = 2;
+                    } else if (trueValue>2200){
+                  c = 1;
                } else if (trueValue>0) {
-                c = 1;
+                c = 0;
                }
                return c
         })
