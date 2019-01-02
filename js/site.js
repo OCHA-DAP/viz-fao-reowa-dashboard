@@ -247,14 +247,14 @@ function generateC3(x, data1, data2, bind) {
                 legend: {
                   hide: true
                 },
-                tooltip:{
+                /*tooltip:{
                     format: {
                         value: function(value, ratio, id ){
                             var format = (id === 'Funding requested' || id === 'Funding received') ? formatMillion : d3.format(".1s");
                             return format(value);
                         }
                     }
-                }
+                }*/
     });
   // $('#chart'+bind).data('chartObj', chart);
 }
