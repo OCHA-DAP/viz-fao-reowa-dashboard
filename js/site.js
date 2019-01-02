@@ -28,7 +28,7 @@ function hxlProxyToJSON(input){
 
 //tooltip
 var rowtip = d3.tip().attr('class', 'd3-tip').html(function (d) {
-    return d.key + ': ' + d3.format('0.000')(d.value);
+    return d.key + ': ' + d3.format('0,000')(d.value);
 
 });
 
@@ -108,22 +108,28 @@ activityChart
        .colors(mapColors)
        .colorDomain([0,5])
        .colorAccessor(function (d){
+        var trueValue;
+        d==59625 ? trueValue= 38317:
+        d==18567 ? trueValue= 20550:
+        d==25756 ? trueValue= 29000:
+        d==52908 ? trueValue= 15600:
+        d==2300 ? trueValue = 14398: trueValue=34500;
         var c = 0
-           if (d>55000) {
+           if (trueValue>37000) {
                  c = 4;
-               } else if (d>50000) {
+               } else if (trueValue>28000) {
                     c = 3;
-               } else if (d>10000){
+               } else if (trueValue>14000){
                   c = 2;
-               } else if (d>0) {
+               } else if (trueValue>0) {
                 c = 1;
                }
                return c
         })
-       .featureKeyAccessor(function (feature){
-          return feature.properties['country_code'];
+       .featureKeyAccessor(function (d){
+          return d.properties['country_code'];
           }).popup(function (feature){
-          return '<strong>'+(feature.properties['country_name']).toUpperCase()+'</strong><h6>Nombre de projets: '+feature.properties['projet']+'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']+'</h6>';
+          return '<h6><strong>'+(feature.properties['country_name']).toUpperCase()+'</strong><br>Nombre de projets: '+feature.properties['projet']+'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']+'</h6>';
        });
 
       dc.renderAll();
@@ -234,10 +240,18 @@ function generateC3(x, data1, data2, bind) {
                 size: {
                     height: 250
                 },
-                padding: {left:20, right: 10},
+                padding: {left:20, right: 20},
                 legend: {
                   hide: true
                 },
+                tooltip:{
+                    format: {
+                        value: function(value, ratio, id ){
+                            var format = (id === 'Funding requested' || id === 'Funding received') ? formatMillion : d3.format(".1s");
+                            return format(value);
+                        }
+                    }
+                }
     });
   // $('#chart'+bind).data('chartObj', chart);
 }
