@@ -108,7 +108,7 @@ activityChart
        .colors(mapColors)
        .colorDomain([0,5])
        .colorAccessor(function (d){
-        var trueValue=0;
+        var trueValue=1;
         d==59625 ? trueValue= 38317:trueValue=d;
         d==18567 ? trueValue= 20550:trueValue=d;
         d==25756 ? trueValue= 29000:trueValue=d;
@@ -125,7 +125,7 @@ activityChart
                     } else if (trueValue>2200){
                   c = 1;
                } else if (trueValue>0) {
-                c = 0;
+                c = 1;
                }
                return c
         })
