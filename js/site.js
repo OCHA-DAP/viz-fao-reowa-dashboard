@@ -233,28 +233,34 @@ function generateC3(x, data1, data2, bind) {
                 axis: {
                     x: {
                         type: 'category',
+                        tick: {
+                          centered: true,
+                          // rotate: 25,
+                          outer: false,
+                        
+                    }
                     },
                     y: {
                         tick:{
-                          count: 6
+                          count: 6,
+                          format: d3.format('.2s'),
                         }
                     }
                 },
                 size: {
                     height: 250
                 },
-                padding: {left:20, right: 20},
+                padding: {left:35, right: 0, bottom: 0},
                 legend: {
                   hide: true
                 },
-                /*tooltip:{
+                tooltip:{
                     format: {
                         value: function(value, ratio, id ){
-                            var format = (id === 'Funding requested' || id === 'Funding received') ? formatMillion : d3.format(".1s");
-                            return format(value);
+                            return d3.format('0.000')(value);
                         }
                     }
-                }*/
+                }
     });
   // $('#chart'+bind).data('chartObj', chart);
 }
