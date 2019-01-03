@@ -36,18 +36,19 @@ var formatNumber = function(d){
     return d3.format(',')(d);
 }
 
-function generateringComponent(vardata, vargeodata){
+function generateringComponent(vardata, vargeodata, funds){
 var lookup = genLookup(vargeodata) ;
 var map = dc.leafletChoroplethChart('#map');
 var activityChart = dc.rowChart('#activite');
 var fundChart = dc.rowChart('#financement');
 var cf = crossfilter(vardata) ;
+var cf1 = crossfilter(funds)
 var all = cf.groupAll();
 var mapDimension = cf.dimension(function(d) { return d['#country+code']});
 var mapGroup = mapDimension.group().reduceSum(function(d){ return d['#reached+households']});
 var activityDimension = cf.dimension(function(d) {return d['#activity+name']});
 var activityGroup = activityDimension.group().reduceSum(function(d){return d['#reached+people']});
-var fundDimension = cf.dimension(function(d){return d['#country+name']});
+var fundDimension = cf1.dimension(function(d){return d['#country+name']});
 var fundGroup = fundDimension.group().reduceSum(function(d){return d['#value+funding+total+usd']});
 dc.dataCount('#count-info')
   .dimension(cf)
@@ -290,15 +291,21 @@ var data2Call = $.ajax({
   dataType: 'JSON'
 
 });
+var dataFundsCall = $.ajax({
+  type: 'GET',
+  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1_csDhgYdfvgaumE8uqKBRmh_JEpyem3XFuXuJ9WvbNw%2Fedit%23gid%3D642629955', 
+  dataType: 'JSON'
+});
 
-$.when(dataCall, geomCall, data2Call).then(function(dataArgs, geomArgs, data2Args){
+$.when(dataCall, geomCall, data2Call, dataFundsCall).then(function(dataArgs, geomArgs, data2Args, dataFundsArgs){
     var geom = geomArgs[0];
     geom.features.forEach(function(e){
         e.properties['country_code'] = String(e.properties['country_code']);
     });
     var dat = hxlProxyToJSON(dataArgs[0]);
-    generateringComponent(dat,geom);
-
+    var fund = hxlProxyToJSON(dataFundsArgs[0]);
+    generateringComponent(dat, geom, fund);
+console.log(fund)
     var data = hxlProxyToJSON(data2Args[0]);
     generateC3Charts(data);
 
