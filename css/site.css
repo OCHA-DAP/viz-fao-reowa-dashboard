@@ -22,7 +22,9 @@ h5{
 h6 {
   font-size: 13px;
 }
-
+strong{
+   font-weight: bold;
+}
 .dc-chart g.row text {
     fill: black;
     font-size:0.8em;
@@ -62,6 +64,7 @@ h6 {
 .c3-axis-x {
   font-size: 0.9em;
 }
+
 
 .loader {
     animation: spin 2s linear infinite;
