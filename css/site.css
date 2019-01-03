@@ -16,6 +16,9 @@
   color: #6787E7;
 }
 
+h5{
+  height: 25px;
+}
 h6 {
   font-size: 13px;
 }
@@ -57,16 +60,9 @@ h6 {
     display: inline;
 }
 .c3-axis-x {
-  font-family: 'SourceSansPro-Regular';
   font-size: 0.9em;
- /* font-weight: bold;*/
 }
-/*.c3-axis-y {
-  font-family: 'SourceSansPro-Regular';
-  font-size: 0.8em;
-  font-weight: bold;
-}
-*/
+
 .loader {
     animation: spin 2s linear infinite;
     border: 8px solid #f3f3f3; /* Light grey */
