@@ -235,7 +235,7 @@ function generateC3(x, data1, data2, bind) {
                         type: 'category',
                         tick: {
                           centered: true,
-                          // rotate: 25,
+                         // rotate: 38,
                           outer: false,
                         
                     }
@@ -250,7 +250,7 @@ function generateC3(x, data1, data2, bind) {
                 size: {
                     height: 250
                 },
-                padding: {left:35, right: 0, bottom: 0},
+                padding: {left:30},
                 legend: {
                   hide: true
                 },
