@@ -137,8 +137,8 @@ activityChart
           }).popup(function (feature){
           return '<h6><strong>'+(feature.properties['country_name']).toUpperCase()
           +'</strong><br>Nombre de projets: '+feature.properties['projet']
-          +'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']
           +'<br>Financement reçu: '+feature.properties['financement']+ ' $'
+          +'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']
           +'</h6>';
        });
 
