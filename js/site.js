@@ -50,6 +50,8 @@ var activityDimension = cf.dimension(function(d) {return d['#activity+name']});
 var activityGroup = activityDimension.group().reduceSum(function(d){return d['#reached+people']});
 var fundDimension = cf1.dimension(function(d){return d['#country+name']});
 var fundGroup = fundDimension.group().reduceSum(function(d){return d['#value+funding+total+usd']});
+var personbenDimension = cf.dimension(function (d) {return d['#country+name']});
+var personbenGroup = personbenDimension.group().reduceSum(function(d){return d['#reached+people']});
 dc.dataCount('#count-info')
   .dimension(cf)
   .group(all);
@@ -84,8 +86,8 @@ activityChart
               bottom: 20,
               left: 10
             })
-            .dimension(fundDimension)
-            .group(fundGroup)
+            .dimension(personbenDimension)
+            .group(personbenGroup)
             .elasticX(true)
             .data(function(group) {
                 return group.top(Infinity);
@@ -133,7 +135,11 @@ activityChart
        .featureKeyAccessor(function (d){
           return d.properties['country_code'];
           }).popup(function (feature){
-          return '<h6><strong>'+(feature.properties['country_name']).toUpperCase()+'</strong><br>Nombre de projets: '+feature.properties['projet']+'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']+'</h6>';
+          return '<h6><strong>'+(feature.properties['country_name']).toUpperCase()
+          +'</strong><br>Nombre de projets: '+feature.properties['projet']
+          +'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']
+          +'<br>Financement reçu: '+feature.properties['financement']+ ' $'
+          +'</h6>';
        });
 
       dc.renderAll();
