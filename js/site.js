@@ -111,23 +111,23 @@ activityChart
        .colors(mapColors)
        .colorDomain([0,5])
        .colorAccessor(function (d){
-        var trueValue=1;
-        d==59625 ? trueValue= 38317:trueValue=d;
-        d==18567 ? trueValue= 20550:trueValue=d;
-        d==25756 ? trueValue= 29000:trueValue=d;
-        d==52908 ? trueValue= 15600:trueValue=d;
-        d==2300 ? trueValue = 14398:trueValue=d;
-        d== 51072 ?  trueValue=34500: trueValue=d;
+        /*var trueValue=1;
+      NER  d==21617 ? trueValue= 38317:trueValue=d;
+      BFA  d==18567 ? trueValue= 20550:trueValue=d;
+      MLI  d==25756 ? trueValue= 29000:trueValue=d;
+      MRT  d==21699 ? trueValue= 15600:trueValue=d;
+      SEN  d==2300 ? trueValue = 14398:trueValue=d;
+      TCD  d== 14232 ? trueValue=34500: trueValue=d;*/
         var c=0;
-           if (trueValue>37000) {
+           if (d>25000) {
                  c = 4;
-               } else if (trueValue>28000) {
+               } else if (d>18000) {
                     c = 3;
-               } else if (trueValue>14000){
+               } else if (d>14000){
                   c = 2;
-                    } else if (trueValue>2200){
+                    } else if (d>2200){
                   c = 1;
-               } else if (trueValue>0) {
+               } else if (d>0) {
                 c = 1;
                }
                return c
