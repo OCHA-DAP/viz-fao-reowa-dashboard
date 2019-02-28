@@ -119,13 +119,13 @@ activityChart
       SEN  d==2300 ? trueValue = 14398:trueValue=d;
       TCD  d== 14232 ? trueValue=34500: trueValue=d;*/
         var c=0;
-           if (d>25000) {
+           if (d>68000) {
                  c = 4;
-               } else if (d>18000) {
+               } else if (d>57000) {
                     c = 3;
-               } else if (d>14000){
+               } else if (d>18000){
                   c = 2;
-                    } else if (d>2200){
+                    } else if (d>2300){
                   c = 1;
                } else if (d>0) {
                 c = 1;
