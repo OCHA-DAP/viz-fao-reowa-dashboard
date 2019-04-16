@@ -279,7 +279,7 @@ function generateC3(x, data1, data2, bind) {
 });*/
 var dataCall = $.ajax({
   type: 'GET',
-  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1_csDhgYdfvgaumE8uqKBRmh_JEpyem3XFuXuJ9WvbNw%2Fedit%23gid%3D785867042',
+  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1y_UmAJrfCP5OcirA4CyK_n26tnnslQv5ukNDRObtvsU%2Fedit%23gid%3D785867042',
   dataType: 'json',
 });
 
@@ -293,13 +293,13 @@ var geomCall = $.ajax({
 
 var data2Call = $.ajax({
   type: 'GET',
-  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1_csDhgYdfvgaumE8uqKBRmh_JEpyem3XFuXuJ9WvbNw%2Fedit%23gid%3D785657249&force=on',
+  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1y_UmAJrfCP5OcirA4CyK_n26tnnslQv5ukNDRObtvsU%2Fedit%23gid%3D785657249',
   dataType: 'JSON'
 
 });
 var dataFundsCall = $.ajax({
   type: 'GET',
-  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1_csDhgYdfvgaumE8uqKBRmh_JEpyem3XFuXuJ9WvbNw%2Fedit%23gid%3D642629955', 
+  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1y_UmAJrfCP5OcirA4CyK_n26tnnslQv5ukNDRObtvsU%2Fedit%23gid%3D642629955', 
   dataType: 'JSON'
 });
 
