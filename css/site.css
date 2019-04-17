@@ -10,6 +10,17 @@
 /*.viz-container {
     display: none;
 }*/
+.header h3, .form-control {
+  display: inline-block;
+}
+
+h3 {
+  width: 80%;
+}
+.form-control {
+  width: 190px;
+
+}
 
 .chiffre {
   font-size: 20px;
@@ -49,9 +60,9 @@ strong{
 }
 
 #footer {
-  margin-top: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  /*margin-top: 10px;*/
+  /*padding-top: 10px;*/
+  /*padding-bottom: 10px;*/
   border-top-color: #dddddd;
   border-top-style: solid;
   border-top-width: 1px;

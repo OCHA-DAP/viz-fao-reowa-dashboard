@@ -36,22 +36,24 @@ var formatNumber = function(d){
     return d3.format(',')(d);
 }
 
-function generateringComponent(vardata, vargeodata, funds){
+function generateringComponent(vardata, vargeodata){
 var lookup = genLookup(vargeodata) ;
 var map = dc.leafletChoroplethChart('#map');
 var activityChart = dc.rowChart('#activite');
 var fundChart = dc.rowChart('#financement');
+
 var cf = crossfilter(vardata) ;
-var cf1 = crossfilter(funds)
 var all = cf.groupAll();
+
 var mapDimension = cf.dimension(function(d) { return d['#country+code']});
-var mapGroup = mapDimension.group().reduceSum(function(d){ return d['#reached+households']});
+var mapGroup = mapDimension.group();//.reduceSum(function(d){ return d['#reached+households']});
+
 var activityDimension = cf.dimension(function(d) {return d['#activity+name']});
 var activityGroup = activityDimension.group().reduceSum(function(d){return d['#reached+people']});
-var fundDimension = cf1.dimension(function(d){return d['#country+name']});
-var fundGroup = fundDimension.group().reduceSum(function(d){return d['#value+funding+total+usd']});
+
 var personbenDimension = cf.dimension(function (d) {return d['#country+name']});
 var personbenGroup = personbenDimension.group().reduceSum(function(d){return d['#reached+people']});
+
 dc.dataCount('#count-info')
   .dimension(cf)
   .group(all);
@@ -111,35 +113,25 @@ activityChart
        .colors(mapColors)
        .colorDomain([0,5])
        .colorAccessor(function (d){
-        /*var trueValue=1;
-      NER  d==21617 ? trueValue= 38317:trueValue=d;
-      BFA  d==18567 ? trueValue= 20550:trueValue=d;
-      MLI  d==25756 ? trueValue= 29000:trueValue=d;
-      MRT  d==21699 ? trueValue= 15600:trueValue=d;
-      SEN  d==2300 ? trueValue = 14398:trueValue=d;
-      TCD  d== 14232 ? trueValue=34500: trueValue=d;*/
-        var c=0;
-           if (d>68000) {
-                 c = 4;
-               } else if (d>57000) {
-                    c = 3;
-               } else if (d>18000){
-                  c = 2;
-                    } else if (d>2300){
-                  c = 1;
-               } else if (d>0) {
-                c = 1;
-               }
+        console.log(d)
+        var c=5;
+           // if (d>68000) {
+           //       c = 4;
+           //     } else if (d>57000) {
+           //          c = 3;
+           //     } else if (d>18000){
+           //        c = 2;
+           //          } else if (d>2300){
+           //        c = 1;
+           //     } else if (d>0) {
+           //      c = 1;
+           //     }
                return c
         })
        .featureKeyAccessor(function (d){
           return d.properties['country_code'];
           }).popup(function (feature){
-          return '<h6><strong>'+(feature.properties['country_name']).toUpperCase()
-          +'</strong><br>Nombre de projets: '+feature.properties['projet']
-          +'<br>Financement reçu: '+feature.properties['financement']+ ' $'
-          +'<br>Ménages bénéficiaires: '+feature.properties['menage_beneficiaire']
-          +'</h6>';
+            return hoverOverMap(feature.properties['country_code'])
        });
 
       dc.renderAll();
@@ -177,6 +169,22 @@ activityChart
       $('.viz-container').show();
       $('.loader').hide();
 }
+
+function hoverOverMap (code_country) {
+  // body... 
+  var code = '';
+  for (p in data_finances){
+    if (data_finances[p]['#country+code']==code_country) {
+      code = '<h6><strong>'+(data_finances[p]['#country+name'])
+          +'</strong><br>Nombre de projets: '+data_finances[p]['#meta+projects']
+          +'<br>Financement reçu: '+data_finances[p]['#value+funding+total+usd']+ ' $'
+          +'<br>Ménages bénéficiaires: '+data_finances[p]['#reached']
+          +'</h6>';
+    }
+  }
+  return code;
+}//hoverOverMap
+
 var sortData = function(d1, d2) {
     if (d1.key > d2.key) return 1;
     if (d1.key < d2.key) return -1;
@@ -272,11 +280,20 @@ function generateC3(x, data1, data2, bind) {
   // $('#chart'+bind).data('chartObj', chart);
 }
 
-/*var dataCall = $.ajax({
-    type: 'GET',
-    url: 'data/data.json',
-    dataType: 'json',
-});*/
+function generateFigures (figs) {
+  // body... 
+  $('#c3-charts').html('');
+  var i = -1;
+  for (f in figs){
+    i+=1;
+    if (i==3) {
+      $('#c3-charts').append('<div class="col-md-4"><h6 class="kf">Gap de <span class="chiffre">'+figs[f]['#value']+'</span> '+figs[f]['#meta+description']+'</h6></div>');
+    } else{
+      $('#c3-charts').append('<div class="col-md-4"><h6 class="kf"><span class="chiffre">'+figs[f]['#value']+'</span> '+figs[f]['#meta+description']+'</h6></div>');
+    }
+  }
+}//generateFigures
+
 var dataCall = $.ajax({
   type: 'GET',
   url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1y_UmAJrfCP5OcirA4CyK_n26tnnslQv5ukNDRObtvsU%2Fedit%23gid%3D785867042',
@@ -289,7 +306,6 @@ var geomCall = $.ajax({
     dataType: 'json',
 });
 
-// debut Amadu's code
 
 var data2Call = $.ajax({
   type: 'GET',
@@ -297,24 +313,84 @@ var data2Call = $.ajax({
   dataType: 'JSON'
 
 });
-var dataFundsCall = $.ajax({
+
+var settingsCall = $.ajax({
   type: 'GET',
-  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1y_UmAJrfCP5OcirA4CyK_n26tnnslQv5ukNDRObtvsU%2Fedit%23gid%3D642629955', 
-  dataType: 'JSON'
+  url: 'https://proxy.hxlstandard.org/data.json?strip-headers=on&force=on&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1HE2yuc9j_-uk-9eeN4qK8A3n9bYd24I8ZYjyMS6rU-c%2Fedit%23gid%3D0',
+  dataType: 'JSON',
 });
 
-$.when(dataCall, geomCall, data2Call, dataFundsCall).then(function(dataArgs, geomArgs, data2Args, dataFundsArgs){
-    var geom = geomArgs[0];
-    geom.features.forEach(function(e){
-        e.properties['country_code'] = String(e.properties['country_code']);
-    });
-    var dat = hxlProxyToJSON(dataArgs[0]);
-    var fund = hxlProxyToJSON(dataFundsArgs[0]);
-    generateringComponent(dat, geom, fund);
-console.log(fund)
-    var data = hxlProxyToJSON(data2Args[0]);
-    generateC3Charts(data);
+function setter (argument) {
+  // body...
+  var len = settingsData.length-1;
+  if (argument) {
+    for (var i = 0; i < settingsData.length; i++) {
+      argument==settingsData[i]['#date'] ? len=i : '';
+    }
+  }
+  var url3w = settingsData[len]['#meta+url+w3'], //prends lenght -1
+      urlc3 = settingsData[len]['#meta+c3+url'],
+      urlfigs = settingsData[len]['#meta+figures+url'],
+      urlfin = settingsData[len]['#meta+finance+url'];
+  $.ajax({
+    type: 'GET',
+    url: url3w,
+    dataType: 'JSON',
+    async:false,
+    success: function(d){ data_3w = hxlProxyToJSON(d);}
+  });
+
+  $.ajax({
+    type: 'GET',
+    url: urlc3,
+    dataType: 'JSON',
+    async:false,
+    success: function(d){ data_c3 = hxlProxyToJSON(d);}
+  });
+
+  $.ajax({
+    type: 'GET',
+    url: urlfigs,
+    dataType: 'JSON',
+    async:false,
+    success: function(d){ data_figures = hxlProxyToJSON(d);}
+  });
+  
+  $.ajax({
+    type: 'GET',
+    url: urlfin,
+    dataType: 'JSON',
+    async:false,
+    success: function(d){ data_finances = hxlProxyToJSON(d);}
+  });
+}
+
+//global vars
+var data_3w,
+    data_c3,
+    data_figures,
+    data_finances,
+    settingsData,
+    geom;
+
+$.when(settingsCall, geomCall).then(function(settingsArgs, geomArgs){
+  geom = geomArgs[0];
+  settingsData = hxlProxyToJSON(settingsArgs[0]);
+  setter();
+
+  generateringComponent(data_3w, geom);
+  generateC3Charts(data_c3);
+  generateFigures(data_figures);
 
 });
 
-// testing
+$('#date_selection').on('change', function(e){
+  var select = $('#date_selection option:selected').text();
+  setter(select);
+  generateringComponent(data_3w, geom);
+  generateC3Charts(data_c3);
+  generateFigures(data_figures);
+});
+
+
+
