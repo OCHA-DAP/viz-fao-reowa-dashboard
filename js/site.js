@@ -113,7 +113,6 @@ activityChart
        .colors(mapColors)
        .colorDomain([0,5])
        .colorAccessor(function (d){
-        console.log(d)
         var c=5;
            // if (d>68000) {
            //       c = 4;
@@ -385,6 +384,8 @@ $.when(settingsCall, geomCall).then(function(settingsArgs, geomArgs){
 });
 
 $('#date_selection').on('change', function(e){
+  // $('.viz-container').hide();
+  $('.loader').show();
   var select = $('#date_selection option:selected').text();
   setter(select);
   generateringComponent(data_3w, geom);
